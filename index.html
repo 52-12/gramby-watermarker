@@ -8,13 +8,34 @@
     and this app will generate the creation code below!</p>
 
 <h2>Creation Code</h2>
-<input type="text">
+<input id='code' type="text">
 <h2>Watermark Text</h2>
-<input type="text">
-<p>Example Output</p>
+<input id='text' type="text">
+<h2>Value:</h2>
+<p id='output'></p>
 <button>Copy</button>
 
-<script></script>
+<script>
+    addEventListener("input", (event) => {
+        var creationCode = document.getElementById('code').value;
+        var watermarkText = document.getElementById('text').value;
+        var lastGeneratedCode = '';
+        
+        if(lastGeneratedCode !== generateCode(creationCode)){
+            // only activates when the generated code has a different result
+            lastGeneratedCode = generateCode(creationCode);
+            console.log(lastGeneratedCode)
+            document.getElementById('output').innerText = lastGeneratedCode;
+        }
+    });
+
+    function generateCode(creationCode){
+        var decodedbase64 = atob(creationCode); 
+        return decodedbase64;
+    }
+</script>
 
 </body>
 </html>
+<!-- sample base64 code -->
+<!-- W1siQ29ubmVjdG9yIixbXSxbXV0sWyJJbnB1dFNlbnNvciIsW1syLDEsMTNdXSx7IkFjdGl2YXRpb25LZXkiOiJUd28ifV0sWyJUaHJ1c3RlciIsW1sxLDEsMl1dLFtdXSxbIlNlYXQiLFtbMSw2LDhdXSxbXV0sWyJUaHJ1c3RlciIsW1sxLDEsN11dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMSwxN11dLHsiQWN0aXZhdGlvbktleSI6IlRocmVlIn1dLFsiSW5wdXRTZW5zb3IiLFtbMiwxLDldXSx7IkFjdGl2YXRpb25LZXkiOiJGaXZlIn1dLFsiQ29ubmVjdG9yIixbWzUsMSwxMF1dLFtdXSxbIkZ1ZWxUYW5rIixbWzIsMSwxNF1dLFtdXSxbIlN0aWNrIixbWzIsNCwxOV1dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMSwyNl1dLHsiQWN0aXZhdGlvbktleSI6Ik9uZSJ9XSxbIlN0aWNrIixbWzIsMywxXV0sW11dLFsiRnVlbFRhbmsiLFtbMiwxLDI5XV0sW11dLFsiUHJvcGVsbGVyIixbWzIsMiwxNl1dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMSwyMV1dLHsiQWN0aXZhdGlvbktleSI6IkZvdXIifV0sWyJCZWFyaW5nIixbWzEsMSw2XV0sW11dLFsiU3RpY2siLFtbMiw2LDIwXV0sW11dLFsiRnVlbFRhbmsiLFtbMiwyLDE5XV0sW11dLFsiQ29ubmVjdG9yIixbWzUsNiwxXV0sW11dLFsiQ29ubmVjdG9yIixbWzUsNCw4XV0sW11dLFsiRnVlbFRhbmsiLFtbMiw0LDIwXV0sW11dLFsiQW5jaG9yIixbWzEsMSwyM11dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMywyMF1dLHsiQWN0aXZhdGlvbktleSI6IlYifV0sWyJHeXJvIixbWzEsNCwyOV1dLHsiQWN0aXZhdGVkIjp0cnVlLCJSR0IiOls3MywyNiwxMTJdfV0sWyJUaHJ1c3RlciIsW1sxLDEsMTFdXSxbXV0sWyJGdWVsVGFuayIsW1syLDIsMjldXSxbXV0sWyJUaHJ1c3RlciIsW1sxLDEsMTVdXSxbXV0sWyJGdWVsVGFuayIsW1syLDEsMTldXSxbXV0sWyJDb25uZWN0b3IiLFtbNSwxLDEyXV0sW11dLFsiU2VhdCIsW1sxLDQsMV1dLFtdXV0= -->
