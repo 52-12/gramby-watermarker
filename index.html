@@ -22,17 +22,36 @@
             var watermarkText = document.getElementById('text').value;
             var lastGeneratedCode = '';
 
-            if (lastGeneratedCode !== generateCode(creationCode)) {
+            if (lastGeneratedCode !== generateCode(creationCode, watermarkText)) {
                 // only activates when the generated code has a different result
-                lastGeneratedCode = generateCode(creationCode);
-                console.log(lastGeneratedCode)
+                lastGeneratedCode = generateCode(creationCode, watermarkText);
                 document.getElementById('output').innerText = lastGeneratedCode;
             }
         });
 
-        function generateCode(creationCode) {
+        function decodeBase64(creationCode) {
             var decodedbase64 = atob(creationCode);
-            return decodedbase64;
+            return JSON.parse(decodedbase64);
+        }
+
+        function addWatermark(json, text) {
+            let watermarkObject = {
+                "Phrase": text
+            };
+
+            for (let i = 0; i < json.length; i++) {
+                if (Array.isArray(json[i][2])) {
+                    json[i][2] = { ...watermarkObject };
+                } else {
+                    json[i][2].Phrase = text;
+                }
+            }
+            return JSON.stringify(json);
+        }
+
+        function generateCode(creationCode, watermarkText) {
+            let json_code = decodeBase64(creationCode)
+            return addWatermark(json_code, watermarkText);
         }
     </script>
 
