@@ -34,7 +34,7 @@
             var decodedbase64 = atob(creationCode);
             return JSON.parse(decodedbase64);
         }
-
+        
         function addWatermark(json, text) {
             let watermarkObject = {
                 "Watermark": text
@@ -54,8 +54,9 @@
         }
 
         function generateCode(creationCode, watermarkText) {
-            let json_code = decodeBase64(creationCode)
-            return addWatermark(json_code, watermarkText);
+            let jsonCode = decodeBase64(creationCode)
+            let jsonWithWatermark = addWatermark(jsonCode, watermarkText);
+            return btoa(jsonWithWatermark);
         }
 
         function Copy() {
