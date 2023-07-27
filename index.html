@@ -13,8 +13,9 @@
     <h2>Watermark Text</h2>
     <input id='text' type="text">
     <h2>Value:</h2>
+    <button onclick="Copy()">Copy text</button>
     <p id='output'></p>
-    <button>Copy</button>
+
 
     <script>
         addEventListener("input", (event) => {
@@ -36,7 +37,7 @@
 
         function addWatermark(json, text) {
             let watermarkObject = {
-                "Phrase": text
+                "Watermark": text
             };
 
             for (let i = 0; i < json.length; i++) {
@@ -53,6 +54,18 @@
             let json_code = decodeBase64(creationCode)
             return addWatermark(json_code, watermarkText);
         }
+        
+        function Copy() {
+            // Get the text field
+            var copyText = document.getElementById("output");
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.textContent);
+
+            // Alert the copied text
+            alert("Copied the text");
+        }
+
     </script>
 
 </body>
