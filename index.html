@@ -37,14 +37,17 @@
 
         function addWatermark(json, text) {
             let watermarkObject = {
-                "Watermark:": text
+                "Watermark": text
             };
 
             for (let i = 0; i < json.length; i++) {
+                if ('Watermark' in json[i][2]) {
+                    return 'Error';
+                }    
                 if (Array.isArray(json[i][2])) {
                     json[i][2] = { ...watermarkObject };
                 } else {
-                    json[i][2].Phrase = text;
+                    json[i][2].Watermark = text;
                 }
             }
             return JSON.stringify(json);
@@ -54,7 +57,7 @@
             let json_code = decodeBase64(creationCode)
             return addWatermark(json_code, watermarkText);
         }
-        
+
         function Copy() {
             // Get the text field
             var copyText = document.getElementById("output");
@@ -77,3 +80,5 @@
 <!-- [["Connector",[],[]],["InputSensor",[[2,1,13]],{"ActivationKey":"Two"}],["Thruster",[[1,1,2]],[]],["Seat",[[1,6,8]],[]],["Thruster",[[1,1,7]],[]],["InputSensor",[[2,1,17]],{"ActivationKey":"Three"}],["InputSensor",[[2,1,9]],{"ActivationKey":"Five"}],["Connector",[[5,1,10]],[]],["FuelTank",[[2,1,14]],[]],["Stick",[[2,4,19]],[]],["InputSensor",[[2,1,26]],{"ActivationKey":"One"}],["Stick",[[2,3,1]],[]],["FuelTank",[[2,1,29]],[]],["Propeller",[[2,2,16]],[]],["InputSensor",[[2,1,21]],{"ActivationKey":"Four"}],["Bearing",[[1,1,6]],[]],["Stick",[[2,6,20]],[]],["FuelTank",[[2,2,19]],[]],["Connector",[[5,6,1]],[]],["Connector",[[5,4,8]],[]],["FuelTank",[[2,4,20]],[]],["Anchor",[[1,1,23]],[]],["InputSensor",[[2,3,20]],{"ActivationKey":"V"}],["Gyro",[[1,4,29]],{"Activated":true,"RGB":[73,26,112]}],["Thruster",[[1,1,11]],[]],["FuelTank",[[2,2,29]],[]],["Thruster",[[1,1,15]],[]],["FuelTank",[[2,1,19]],[]],["Connector",[[5,1,12]],[]],["Seat",[[1,4,1]],[]]] -->
 <!-- obfuscated base64 code -->
 <!-- W1siXHUwMDQzXHUwMDZmXHUwMDZlXHUwMDZlXHUwMDY1XHUwMDYzXHUwMDc0XHUwMDZmXHUwMDcyIixbXSxbXV0sWyJcdTAwNDlcdTAwNmVcdTAwNzBcdTAwNzVcdTAwNzRcdTAwNTNcdTAwNjVcdTAwNmVcdTAwNzNcdTAwNmZcdTAwNzIiLFtbMiwxLDEzXV0seyJcdTAwNDFcdTAwNjNcdTAwNzRcdTAwNjlcdTAwNzZcdTAwNjFcdTAwNzRcdTAwNjlcdTAwNmZcdTAwNmVcdTAwNGJcdTAwNjVcdTAwNzkiOiJcdTAwNTRcdTAwNzdcdTAwNmYifV0sWyJcdTAwNTRcdTAwNjhcdTAwNzJcdTAwNzVcdTAwNzNcdTAwNzRcdTAwNjVcdTAwNzIiLFtbMSwxLDJdXSxbXV0sWyJcdTAwNTNcdTAwNjVcdTAwNjFcdTAwNzQiLFtbMSw2LDhdXSxbXV0sWyJcdTAwNTRcdTAwNjhcdTAwNzJcdTAwNzVcdTAwNzNcdTAwNzRcdTAwNjVcdTAwNzIiLFtbMSwxLDddXSxbXV0sWyJcdTAwNDlcdTAwNmVcdTAwNzBcdTAwNzVcdTAwNzRcdTAwNTNcdTAwNjVcdTAwNmVcdTAwNzNcdTAwNmZcdTAwNzIiLFtbMiwxLDE3XV0seyJcdTAwNDFcdTAwNjNcdTAwNzRcdTAwNjlcdTAwNzZcdTAwNjFcdTAwNzRcdTAwNjlcdTAwNmZcdTAwNmVcdTAwNGJcdTAwNjVcdTAwNzkiOiJcdTAwNTRcdTAwNjhcdTAwNzJcdTAwNjVcdTAwNjUifV0sWyJcdTAwNDlcdTAwNmVcdTAwNzBcdTAwNzVcdTAwNzRcdTAwNTNcdTAwNjVcdTAwNmVcdTAwNzNcdTAwNmZcdTAwNzIiLFtbMiwxLDldXSx7Ilx1MDA0MVx1MDA2M1x1MDA3NFx1MDA2OVx1MDA3Nlx1MDA2MVx1MDA3NFx1MDA2OVx1MDA2Zlx1MDA2ZVx1MDA0Ylx1MDA2NVx1MDA3OSI6Ilx1MDA0Nlx1MDA2OVx1MDA3Nlx1MDA2NSJ9XSxbIlx1MDA0M1x1MDA2Zlx1MDA2ZVx1MDA2ZVx1MDA2NVx1MDA2M1x1MDA3NFx1MDA2Zlx1MDA3MiIsW1s1LDEsMTBdXSxbXV0sWyJcdTAwNDZcdTAwNzVcdTAwNjVcdTAwNmNcdTAwNTRcdTAwNjFcdTAwNmVcdTAwNmIiLFtbMiwxLDE0XV0sW11dLFsiXHUwMDUzXHUwMDc0XHUwMDY5XHUwMDYzXHUwMDZiIixbWzIsNCwxOV1dLFtdXSxbIlx1MDA0OVx1MDA2ZVx1MDA3MFx1MDA3NVx1MDA3NFx1MDA1M1x1MDA2NVx1MDA2ZVx1MDA3M1x1MDA2Zlx1MDA3MiIsW1syLDEsMjZdXSx7Ilx1MDA0MVx1MDA2M1x1MDA3NFx1MDA2OVx1MDA3Nlx1MDA2MVx1MDA3NFx1MDA2OVx1MDA2Zlx1MDA2ZVx1MDA0Ylx1MDA2NVx1MDA3OSI6Ilx1MDA0Zlx1MDA2ZVx1MDA2NSJ9XSxbIlx1MDA1M1x1MDA3NFx1MDA2OVx1MDA2M1x1MDA2YiIsW1syLDMsMV1dLFtdXSxbIlx1MDA0Nlx1MDA3NVx1MDA2NVx1MDA2Y1x1MDA1NFx1MDA2MVx1MDA2ZVx1MDA2YiIsW1syLDEsMjldXSxbXV0sWyJcdTAwNTBcdTAwNzJcdTAwNmZcdTAwNzBcdTAwNjVcdTAwNmNcdTAwNmNcdTAwNjVcdTAwNzIiLFtbMiwyLDE2XV0sW11dLFsiXHUwMDQ5XHUwMDZlXHUwMDcwXHUwMDc1XHUwMDc0XHUwMDUzXHUwMDY1XHUwMDZlXHUwMDczXHUwMDZmXHUwMDcyIixbWzIsMSwyMV1dLHsiXHUwMDQxXHUwMDYzXHUwMDc0XHUwMDY5XHUwMDc2XHUwMDYxXHUwMDc0XHUwMDY5XHUwMDZmXHUwMDZlXHUwMDRiXHUwMDY1XHUwMDc5IjoiXHUwMDQ2XHUwMDZmXHUwMDc1XHUwMDcyIn1dLFsiXHUwMDQyXHUwMDY1XHUwMDYxXHUwMDcyXHUwMDY5XHUwMDZlXHUwMDY3IixbWzEsMSw2XV0sW11dLFsiXHUwMDUzXHUwMDc0XHUwMDY5XHUwMDYzXHUwMDZiIixbWzIsNiwyMF1dLFtdXSxbIlx1MDA0Nlx1MDA3NVx1MDA2NVx1MDA2Y1x1MDA1NFx1MDA2MVx1MDA2ZVx1MDA2YiIsW1syLDIsMTldXSxbXV0sWyJcdTAwNDNcdTAwNmZcdTAwNmVcdTAwNmVcdTAwNjVcdTAwNjNcdTAwNzRcdTAwNmZcdTAwNzIiLFtbNSw2LDFdXSxbXV0sWyJcdTAwNDNcdTAwNmZcdTAwNmVcdTAwNmVcdTAwNjVcdTAwNjNcdTAwNzRcdTAwNmZcdTAwNzIiLFtbNSw0LDhdXSxbXV0sWyJcdTAwNDZcdTAwNzVcdTAwNjVcdTAwNmNcdTAwNTRcdTAwNjFcdTAwNmVcdTAwNmIiLFtbMiw0LDIwXV0sW11dLFsiXHUwMDQxXHUwMDZlXHUwMDYzXHUwMDY4XHUwMDZmXHUwMDcyIixbWzEsMSwyM11dLFtdXSxbIlx1MDA0OVx1MDA2ZVx1MDA3MFx1MDA3NVx1MDA3NFx1MDA1M1x1MDA2NVx1MDA2ZVx1MDA3M1x1MDA2Zlx1MDA3MiIsW1syLDMsMjBdXSx7Ilx1MDA0MVx1MDA2M1x1MDA3NFx1MDA2OVx1MDA3Nlx1MDA2MVx1MDA3NFx1MDA2OVx1MDA2Zlx1MDA2ZVx1MDA0Ylx1MDA2NVx1MDA3OSI6Ilx1MDA1NiJ9XSxbIlx1MDA0N1x1MDA3OVx1MDA3Mlx1MDA2ZiIsW1sxLDQsMjldXSx7Ilx1MDA0MVx1MDA2M1x1MDA3NFx1MDA2OVx1MDA3Nlx1MDA2MVx1MDA3NFx1MDA2NVx1MDA2NCI6dHJ1ZSwiXHUwMDUyXHUwMDQ3XHUwMDQyIjpbNzMsMjYsMTEyXX1dLFsiXHUwMDU0XHUwMDY4XHUwMDcyXHUwMDc1XHUwMDczXHUwMDc0XHUwMDY1XHUwMDcyIixbWzEsMSwxMV1dLFtdXSxbIlx1MDA0Nlx1MDA3NVx1MDA2NVx1MDA2Y1x1MDA1NFx1MDA2MVx1MDA2ZVx1MDA2YiIsW1syLDIsMjldXSxbXV0sWyJcdTAwNTRcdTAwNjhcdTAwNzJcdTAwNzVcdTAwNzNcdTAwNzRcdTAwNjVcdTAwNzIiLFtbMSwxLDE1XV0sW11dLFsiXHUwMDQ2XHUwMDc1XHUwMDY1XHUwMDZjXHUwMDU0XHUwMDYxXHUwMDZlXHUwMDZiIixbWzIsMSwxOV1dLFtdXSxbIlx1MDA0M1x1MDA2Zlx1MDA2ZVx1MDA2ZVx1MDA2NVx1MDA2M1x1MDA3NFx1MDA2Zlx1MDA3MiIsW1s1LDEsMTJdXSxbXV0sWyJcdTAwNTNcdTAwNjVcdTAwNjFcdTAwNzQiLFtbMSw0LDFdXSxbXV1d -->
+<!-- no water mark-->
+<!-- W1siQ29ubmVjdG9yIixbXSxbXV0sWyJJbnB1dFNlbnNvciIsW1syLDEsMTNdXSx7IkFjdGl2YXRpb25LZXkiOiJUd28ifV0sWyJUaHJ1c3RlciIsW1sxLDEsMl1dLFtdXSxbIlNlYXQiLFtbMSw2LDhdXSxbXV0sWyJUaHJ1c3RlciIsW1sxLDEsN11dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMSwxN11dLHsiQWN0aXZhdGlvbktleSI6IlRocmVlIn1dLFsiSW5wdXRTZW5zb3IiLFtbMiwxLDldXSx7IkFjdGl2YXRpb25LZXkiOiJGaXZlIn1dLFsiQ29ubmVjdG9yIixbWzUsMSwxMF1dLFtdXSxbIkZ1ZWxUYW5rIixbWzIsMSwxNF1dLFtdXSxbIlN0aWNrIixbWzIsNCwxOV1dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMSwyNl1dLHsiQWN0aXZhdGlvbktleSI6Ik9uZSJ9XSxbIlN0aWNrIixbWzIsMywxXV0sW11dLFsiRnVlbFRhbmsiLFtbMiwxLDI5XV0sW11dLFsiUHJvcGVsbGVyIixbWzIsMiwxNl1dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMSwyMV1dLHsiQWN0aXZhdGlvbktleSI6IkZvdXIifV0sWyJCZWFyaW5nIixbWzEsMSw2XV0sW11dLFsiU3RpY2siLFtbMiw2LDIwXV0sW11dLFsiRnVlbFRhbmsiLFtbMiwyLDE5XV0sW11dLFsiQ29ubmVjdG9yIixbWzUsNiwxXV0sW11dLFsiQ29ubmVjdG9yIixbWzUsNCw4XV0sW11dLFsiRnVlbFRhbmsiLFtbMiw0LDIwXV0sW11dLFsiQW5jaG9yIixbWzEsMSwyM11dLFtdXSxbIklucHV0U2Vuc29yIixbWzIsMywyMF1dLHsiQWN0aXZhdGlvbktleSI6IlYifV0sWyJHeXJvIixbWzEsNCwyOV1dLHsiQWN0aXZhdGVkIjp0cnVlLCJSR0IiOls3MywyNiwxMTJdfV0sWyJUaHJ1c3RlciIsW1sxLDEsMTFdXSxbXV0sWyJGdWVsVGFuayIsW1syLDIsMjldXSxbXV0sWyJUaHJ1c3RlciIsW1sxLDEsMTVdXSxbXV0sWyJGdWVsVGFuayIsW1syLDEsMTldXSxbXV0sWyJDb25uZWN0b3IiLFtbNSwxLDEyXV0sW11dLFsiU2VhdCIsW1sxLDQsMV1dLFtdXV0= -->
