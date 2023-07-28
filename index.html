@@ -50,7 +50,7 @@
                     json[i][2].Watermark = text;
                 }
             }
-            return obfuscate(JSON.stringify(json));
+            return obfuscate(JSON.stringify(json), text);
         }
 
         /**
@@ -66,21 +66,29 @@
         /**
          * Obfuscate json string.
          * @param {string} value - The value to obfuscate.
+         * @param {string} excludedText - Text to not obfuscate
          * @returns {string}
          */
-        function obfuscate(value) {
+        function obfuscate(value, excludedText) {
             const stringRegex = /"(?:"|.)*?"/gm;
 
             const syntaxArr = value.split(stringRegex), stringArr = `"${value}"`.split(stringRegex).slice(1, -1);
 
             let unicodeArr = [], obfuscated = '';
-            stringArr.forEach(str => unicodeArr.push(`"${escapeToUnicode(str).replace(/\\u005c$/g, '\\')}"`));
+            stringArr.forEach(str => {
+                if (str == 'Watermark') {
+                    unicodeArr.push(str)
+                } else if (str == excludedText) {
+                    unicodeArr.push(` ${str}`)
+                }else {
+                    unicodeArr.push(`"${escapeToUnicode(str).replace(/\\u005c$/g, '\\')}"`)
+                }
+            });
             syntaxArr.map((value, index) => obfuscated += `${value}${unicodeArr[index] ? unicodeArr[index] : ''}`);
 
             return obfuscated;
         };
 
-        module.exports = { obfuscate };
         function generateCode(creationCode, watermarkText) {
             let jsonCode = decodeBase64(creationCode)
             let jsonWithWatermark = addWatermark(jsonCode, watermarkText);
