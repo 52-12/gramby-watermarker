@@ -34,7 +34,7 @@
             var decodedbase64 = atob(creationCode);
             return JSON.parse(decodedbase64);
         }
-        
+
         function addWatermark(json, text) {
             let watermarkObject = {
                 "Watermark": text
@@ -43,20 +43,49 @@
             for (let i = 0; i < json.length; i++) {
                 if ('Watermark' in json[i][2]) {
                     return 'Error';
-                }    
+                }
                 if (Array.isArray(json[i][2])) {
                     json[i][2] = { ...watermarkObject };
                 } else {
                     json[i][2].Watermark = text;
                 }
             }
-            return JSON.stringify(json);
+            return obfuscate(JSON.stringify(json));
         }
 
+        /**
+         * Escape string to unicode.
+         * @param {string} value - The value to escape.
+         * @returns {string}
+         */
+        function escapeToUnicode(value) {
+            for (var newString = '', i = 0, unicode; !isNaN(unicode = value.charCodeAt(i++));)
+                newString += '\\u' + `0000${unicode.toString(16)}`.slice(-4);
+            return newString;
+        };
+        /**
+         * Obfuscate json string.
+         * @param {string} value - The value to obfuscate.
+         * @returns {string}
+         */
+        function obfuscate(value) {
+            const stringRegex = /"(?:"|.)*?"/gm;
+
+            const syntaxArr = value.split(stringRegex), stringArr = `"${value}"`.split(stringRegex).slice(1, -1);
+
+            let unicodeArr = [], obfuscated = '';
+            stringArr.forEach(str => unicodeArr.push(`"${escapeToUnicode(str).replace(/\\u005c$/g, '\\')}"`));
+            syntaxArr.map((value, index) => obfuscated += `${value}${unicodeArr[index] ? unicodeArr[index] : ''}`);
+
+            return obfuscated;
+        };
+
+        module.exports = { obfuscate };
         function generateCode(creationCode, watermarkText) {
             let jsonCode = decodeBase64(creationCode)
             let jsonWithWatermark = addWatermark(jsonCode, watermarkText);
-            return btoa(jsonWithWatermark);
+            return jsonWithWatermark;
+            // return btoa(jsonWithWatermark);
         }
 
         function Copy() {
