@@ -2,9 +2,9 @@
 <html>
 
 <body>
-
-    <h1>Gramby Watermarker</h1>
-
+    <span>
+        <h1>Gramby Watermarker<sub style="font-size:x-small;font-weight:500">beta</sub></h1>
+    </span>
     <p>Add your creation code and watermark text
         and this app will generate the creation code below!</p>
 
@@ -51,9 +51,9 @@
                     json[i][2].Watermark = text;
                 }
             }
-            
+
             var nonObfuscated = JSON.stringify(json)
-            if(document.getElementById('check').checked) {
+            if (document.getElementById('check').checked) {
                 var obfuscated = obfuscate(nonObfuscated, text);
                 return obfuscated;
             } else {
@@ -88,7 +88,7 @@
                     unicodeArr.push(str)
                 } else if (str == excludedText) {
                     unicodeArr.push(` "${str}"`)
-                }else {
+                } else {
                     unicodeArr.push(`"${escapeToUnicode(str).replace(/\\u005c$/g, '\\')}"`)
                 }
             });
